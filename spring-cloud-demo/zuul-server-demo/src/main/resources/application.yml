@@ -1,0 +1,27 @@
+server:
+  port: 53994
+
+spring:
+  application:
+    name: zuul-server
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:53989/eureka
+
+ribbon:
+  ReadTimeout: 10000                                  # 请求处理的超时时间
+  ConnectTimeout: 5000                                # 请求连接的超时时间
+
+zuul:
+  routes:
+    service-balance:
+      path: /service-producer/**
+      service-id: eureka-service-producer
+    ribbon: # 测试
+      path: /ribbon/**
+      service-id: ribbon-server
+    feign: # 测试
+      path: /feign/**
+      service-id: feign-server

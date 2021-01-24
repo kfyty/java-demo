@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/shiro?useSSL=false
+      username: root
+      password: www.kfyty.com
+      initial-size: 5
+      min-idle: 5
+      max-active: 100
+      keep-alive: true
+      min-evictable-idle-time-millis: 28740000
+      max-evictable-idle-time-millis: 28800000
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+shiro:
+  loginUrl: /login.html
+  successUrl: /index.html
+  unauthorizedUrl: /refuse.html
+
+mybatis:
+  mapper-locations: classpath:com/kfyty/security/mapper/*.xml
+  type-aliases-package: com.kfyty.security.entity, com.kfyty.security.vo
+  configuration:
+    lazy-loading-enabled: true
+    aggressive-lazy-loading: false
+    cache-enabled: true
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com.kfyty.mybatis.auto.mapper.handle: info
+    com.kfyty.security.mapper: debug

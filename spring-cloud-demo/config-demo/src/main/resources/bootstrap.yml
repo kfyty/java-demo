@@ -1,0 +1,20 @@
+server:
+  port: 53988
+
+spring:
+  application:
+    name: config-service
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          fail-on-error: true
+          search-locations:
+            - classpath:/config/service-producer
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:53989/eureka       # 注册中心 URL

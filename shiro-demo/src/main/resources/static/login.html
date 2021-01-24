@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="/lib/css/element-ui.css" />
+    <script src="/lib/js/vue.js"></script>
+    <script src="/lib/js/element-ui.js"></script>
+    <script src="http://cdn.suoluomei.com/common/js2.0/axios/axios.min.js"></script>
+    <script src="https://cdn.bootcss.com/qs/6.5.1/qs.min.js"></script>
+<!--    <script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>-->
+</head>
+<body>
+<div id="login">
+    <el-form label-width="80px" :model="loginForm" ref="loginForm" :rules="rules">
+        <el-form-item label="用户名" prop="username">
+            <el-input v-model="loginForm.username"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+            <el-input v-model="loginForm.password" show-password></el-input>
+        </el-form-item>
+        <el-form-item label="">
+            <el-checkbox v-model="loginForm.rememberMe">记住我</el-checkbox>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="onSubmit">登录</el-button>
+        </el-form-item>
+    </el-form>
+</div>
+</body>
+<script type="text/javascript">
+    var Main = {
+        data() {
+            return {
+                labelPosition: 'right',
+                loginForm: {
+                    rememberMe: false
+                },
+                rules: {
+                    username: [{required: true, message: '请输入用户名', trigger: 'blur' },
+                        {min: 2, max: 16, message: '长度在 2 到 16 个字符', trigger: 'blur' }],
+                    password: [{required: true, message: '请输入密码', trigger: 'blur' },
+                        {min: 5, max: 16, message: '长度在 5 到 16 个字符', trigger: 'blur' }]
+                }
+            }
+        },
+        methods: {
+            onSubmit(form) {
+                this.$refs.loginForm.validate((valid) => {
+                    if (!valid) {
+                        return false;
+                    }
+                    axios({
+                        method: "post",
+                        url: "/passport/login",
+                        responseType: "json",
+                        data: Qs.stringify(this.loginForm)
+                    }).then(res => {
+                        let data = res.data;
+                        if(!data || data.status !== 200) {
+                            alert(data.message);
+                            return;
+                        }
+                        window.location.href = '/index.html';
+                    });
+                });
+            }
+        }
+    }
+    var Ctor = Vue.extend(Main)
+    new Ctor().$mount('#login')
+</script>
+</html>

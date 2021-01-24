@@ -1,0 +1,9 @@
+rocketmq:
+  name-server: rocketmq:9876
+  producer:
+    group: default_group
+
+logging:
+  level:
+    com.kfyty.mybatis.auto.mapper: debug
+    com.kfyty.mybatis.auto.mapper.handle: info
