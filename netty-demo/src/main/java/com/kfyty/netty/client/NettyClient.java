@@ -61,7 +61,7 @@ public class NettyClient {
                         ch.pipeline().addLast(new DelimiterBasedFrameDecoder(NettyConfig.DEFAULT_BUF, Unpooled.copiedBuffer(DELIMITER.getBytes(StandardCharsets.UTF_8))));
                         ch.pipeline().addLast(new StringDecoder());
                         ch.pipeline().addLast(new StringEncoder());
-                        ch.pipeline().addLast(new IdleStateHandler(0, NettyConfig.WRITE_TIME_OUT, NettyConfig.CLIENT_READ_WRITE_TIME_OUT));
+                        ch.pipeline().addLast(new IdleStateHandler(NettyConfig.CLIENT_READ_TIME_OUT, NettyConfig.CLIENT_WRITE_TIME_OUT, 0));
                         ch.pipeline().addLast(new ClientHeartBeatHandler());
                         ch.pipeline().addLast(new ClientOnlineMonitorHandler(self));
                         ch.pipeline().addLast(new ClientMessageHandler());

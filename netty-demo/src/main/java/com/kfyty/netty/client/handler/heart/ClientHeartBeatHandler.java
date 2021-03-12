@@ -20,19 +20,20 @@ public class ClientHeartBeatHandler extends AbstractHeartBeatHandler {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if(!NettyConfig.PONT.equals(msg)) {
             super.channelRead(ctx, msg);
+            return;
         }
         log.info("收到服务器心跳响应！");
         ReferenceCountUtil.release(msg);
     }
 
     @Override
-    public void handleWriteTimeout(ChannelHandlerContext ctx, IdleStateEvent evt) {
+    public void handleReadTimeout(ChannelHandlerContext ctx, IdleStateEvent evt) {
         log.info("未收到服务器心跳响应，断开连接: {}！", ctx.channel().remoteAddress());
         ctx.channel().close();
     }
 
     @Override
-    protected void handleReadWriteTimeout(ChannelHandlerContext ctx, IdleStateEvent evt) {
+    protected void handleWriteTimeout(ChannelHandlerContext ctx, IdleStateEvent evt) {
         log.info("发送心跳包...");
         ctx.channel().writeAndFlush(NettyConfig.PINT + NettyConfig.DELIMITER);
     }

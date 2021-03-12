@@ -56,7 +56,7 @@ public class NettyServer {
                         ch.pipeline().addLast(new DelimiterBasedFrameDecoder(NettyConfig.DEFAULT_BUF, Unpooled.copiedBuffer(DELIMITER.getBytes(StandardCharsets.UTF_8))));
                         ch.pipeline().addLast(new StringDecoder());
                         ch.pipeline().addLast(new StringEncoder());
-                        ch.pipeline().addLast(new IdleStateHandler(NettyConfig.READ_TIME_OUT, 0, NettyConfig.SERVER_READ_WRITE_TIME_OUT));
+                        ch.pipeline().addLast(new IdleStateHandler(0, 0, NettyConfig.SERVER_READ_WRITE_TIME_OUT));
                         ch.pipeline().addLast(new ServerHeartBeatHandler());
                         ch.pipeline().addLast(new MessageModelDecoder());
                         ch.pipeline().addLast(new OnlineMonitorHandler());

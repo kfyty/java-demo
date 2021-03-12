@@ -22,13 +22,14 @@ public class ServerHeartBeatHandler extends AbstractHeartBeatHandler {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if(!NettyConfig.PINT.equals(msg)) {
             super.channelRead(ctx, msg);
+            return;
         }
         ctx.channel().writeAndFlush(NettyConfig.PONT + DELIMITER);      // 从当前处理器开始回写
         ReferenceCountUtil.release(msg);
     }
 
     @Override
-    public void handleReadTimeout(ChannelHandlerContext ctx, IdleStateEvent evt) {
+    public void handleReadWriteTimeout(ChannelHandlerContext ctx, IdleStateEvent evt) {
         log.info("未收到客户端心跳数据，断开连接: {}！", ctx.channel().remoteAddress());
         ctx.channel().close();
     }

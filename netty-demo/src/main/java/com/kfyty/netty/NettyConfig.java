@@ -22,11 +22,9 @@ public interface NettyConfig {
 
     int RECONNECT = 5;
 
-    int READ_TIME_OUT = 10;
+    int CLIENT_WRITE_TIME_OUT = 9;
 
-    int WRITE_TIME_OUT = 10;
+    int SERVER_READ_WRITE_TIME_OUT = CLIENT_WRITE_TIME_OUT + 3;
 
-    int SERVER_READ_WRITE_TIME_OUT = 8;
-
-    int CLIENT_READ_WRITE_TIME_OUT = 5;
+    int CLIENT_READ_TIME_OUT = SERVER_READ_WRITE_TIME_OUT + 3;
 }
