@@ -4,12 +4,13 @@ spring:
     port: 6379
     password: www.kfyty.com
     timeout: 3000
-    jedis:
+    lettuce:
       pool:
         min-idle: 2
         max-idle: 3
         max-active: 8
         max-wait: 3000ms
+        time-between-eviction-runs: 5000ms
 
 logging:
   level:
