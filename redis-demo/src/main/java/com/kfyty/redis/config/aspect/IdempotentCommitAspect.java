@@ -22,8 +22,6 @@ import org.springframework.stereotype.Component;
 public class IdempotentCommitAspect {
     private static final String KEY_PREFIX = "IDEMPOTENT_COMMIT:";
 
-    private static final String DEFAULT_VALUE = KEY_PREFIX + "VALUE";
-
     @Around(value = "@annotation(idempotentCommit)")
     public Object around(ProceedingJoinPoint pjp, IdempotentCommit idempotentCommit) throws Throwable {
         Object[] args = pjp.getArgs();

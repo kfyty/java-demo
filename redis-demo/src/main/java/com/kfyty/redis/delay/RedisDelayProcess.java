@@ -30,8 +30,6 @@ import java.util.concurrent.TimeUnit;
 public class RedisDelayProcess implements CommandLineRunner, Runnable, DisposableBean {
     private static final int DEFAULT_DAEMON_PERIOD = 5;
 
-    private static final String DEFAULT_VALUE = "REDIS_DELAY_PROCESS:DEFAULT_VALUE";
-
     private volatile boolean start;
 
     private volatile boolean finish;
