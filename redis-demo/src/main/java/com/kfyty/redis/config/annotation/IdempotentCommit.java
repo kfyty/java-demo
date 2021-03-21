@@ -23,10 +23,16 @@ public @interface IdempotentCommit {
     int argIndex() default 0;
 
     /**
-     * 锁过期时间，单位：毫秒
+     * 锁过期时间
      * @return 默认值 5 分钟
      */
     long expire() default 5 * 60;
+
+    /**
+     * 尝试获取锁等待时间
+     * @return 默认值 1 分钟
+     */
+    long tryWait() default 1;
 
     /**
      * 时间单位

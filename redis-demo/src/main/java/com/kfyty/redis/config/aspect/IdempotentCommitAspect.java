@@ -9,8 +9,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * 描述: 防重复提交切面
  *
@@ -39,7 +37,7 @@ public class IdempotentCommitAspect {
             return null;
         }
         String key = this.buildKey(pjp.getSignature(), argIndex, args);
-        if(!RedisUtil.lock(key, DEFAULT_VALUE, TimeUnit.MILLISECONDS.convert(idempotentCommit.expire(), idempotentCommit.timeUnit()))) {
+        if(!RedisUtil.tryLock(key, idempotentCommit.expire(), idempotentCommit.tryWait(), idempotentCommit.timeUnit())) {
             log.error("repeated submit !");
             return "repeated submit !";
         }

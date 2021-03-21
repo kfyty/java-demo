@@ -74,7 +74,7 @@ public class RedisDelayProcess implements CommandLineRunner, Runnable, Disposabl
                         continue;
                     }
                     for (String data : dataSet) {
-                        if(!RedisUtil.lock(data, DEFAULT_VALUE, handler.getValue().lockTimeout())) {
+                        if(!RedisUtil.tryLock(data, handler.getValue().lockTimeout(), handler.getValue().tryWaitTimeout(), handler.getValue().timeoutUnit())) {
                             continue;
                         }
                         try {
