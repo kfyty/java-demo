@@ -35,6 +35,6 @@ public class ClientHeartBeatHandler extends AbstractHeartBeatHandler {
     @Override
     protected void handleWriteTimeout(ChannelHandlerContext ctx, IdleStateEvent evt) {
         log.info("发送心跳包...");
-        ctx.channel().writeAndFlush(NettyConfig.PINT + NettyConfig.DELIMITER);
+        ctx.writeAndFlush(NettyConfig.PINT + NettyConfig.DELIMITER);
     }
 }

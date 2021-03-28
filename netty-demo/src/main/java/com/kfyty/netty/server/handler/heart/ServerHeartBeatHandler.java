@@ -24,7 +24,7 @@ public class ServerHeartBeatHandler extends AbstractHeartBeatHandler {
             super.channelRead(ctx, msg);
             return;
         }
-        ctx.channel().writeAndFlush(NettyConfig.PONT + DELIMITER);      // 从当前处理器开始回写
+        ctx.writeAndFlush(NettyConfig.PONT + DELIMITER);      // 从当前处理器开始回写
         ReferenceCountUtil.release(msg);
     }
 
