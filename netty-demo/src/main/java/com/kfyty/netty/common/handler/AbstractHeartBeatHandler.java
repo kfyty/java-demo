@@ -19,6 +19,7 @@ public abstract class AbstractHeartBeatHandler extends ChannelInboundHandlerAdap
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if(!(evt instanceof IdleStateEvent)) {
             super.userEventTriggered(ctx, evt);
+            return;
         }
         IdleStateEvent event = (IdleStateEvent) evt;
         if (event.state() == IdleState.READER_IDLE) {
