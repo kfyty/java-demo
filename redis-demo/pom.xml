@@ -11,6 +11,12 @@
 
     <artifactId>redis-demo</artifactId>
 
+    <properties>
+        <boot-lib-output>../${boot-lib-dir}</boot-lib-output>
+        <service-jar-output>${boot-lib-output}/boot-service</service-jar-output>
+        <service-classpath-prefix>../</service-classpath-prefix>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -34,4 +40,60 @@
             <version>2.9.0</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <!-- 把依赖的 jar 包信息写入 META-INFO/MANIFEST 文件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>${service-classpath-prefix}</classpathPrefix>
+                            <useUniqueVersions>false</useUniqueVersions>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <!-- 拷贝项目所有依赖文件到 ${boot-lib-dir} 目录下 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <!-- 子模块按照自身层级，定位到统一输出目录 -->
+                            <outputDirectory>${boot-lib-output}</outputDirectory>
+                            <excludeTransitive>false</excludeTransitive>
+                            <stripVersion>false</stripVersion>
+                            <silent>false</silent>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <includes>
+                        <!-- 不存在的引用，相当于排除所有依赖 jar 包 -->
+                        <include>
+                            <groupId>null</groupId>
+                            <artifactId>null</artifactId>
+                        </include>
+                    </includes>
+                    <outputDirectory>${service-jar-output}</outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

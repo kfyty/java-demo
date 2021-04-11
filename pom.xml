@@ -16,6 +16,10 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <boot-lib-dir>boot-lib</boot-lib-dir>
+    </properties>
+
     <modules>
         <module>demo</module>
         <module>patch-upload</module>
