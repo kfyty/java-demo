@@ -7,33 +7,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 public class PermissionService {
     @Autowired
     private PermissionMapper permissionMapper;
 
-    public List<Permission> findByUserIdAndType(Integer userId, String type) {
-        Objects.requireNonNull(userId);
-        Objects.requireNonNull(type);
-        return permissionMapper.findByUserIdAndType(userId, type);
-    }
-
-    public MenuVo findMenuByUserIdAndPermission(Integer userId, Permission permission) {
-        if(permission == null) {
-            return null;
-        }
-        MenuVo menuVo = new MenuVo();
-        menuVo.setMenu(permission);
-        List<Permission> permissions = permissionMapper.findByUserIdAndPid(userId, permission.getId());
+    public List<MenuVo> findMenuByUserId(Integer userId, Integer pid) {
+        List<Permission> permissions = permissionMapper.findByUserIdAndPid(userId, pid);
         if(CollectionUtils.isEmpty(permissions)) {
-            return menuVo;
+            return new LinkedList<>();
         }
-        List<MenuVo> children = permissions.stream().map(e -> findMenuByUserIdAndPermission(userId, e)).collect(Collectors.toList());
-        menuVo.setChildren(children);
-        return menuVo;
+        List<MenuVo> menuVos = new ArrayList<>();
+        for (Permission permission : permissions) {
+            MenuVo menu = new MenuVo();
+            menu.setMenu(permission);
+            menu.setChildren(this.findMenuByUserId(userId, permission.getId()));
+            menuVos.add(menu);
+        }
+        return menuVos;
     }
 }

@@ -1,5 +1,6 @@
 package com.kfyty.shiro.config;
 
+import com.kfyty.shiro.filter.PermissionsAuthorizationFilter;
 import com.kfyty.shiro.realm.UserRealm;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -8,6 +9,7 @@ import org.apache.shiro.authz.ModularRealmAuthorizer;
 import org.apache.shiro.authz.permission.PermissionResolver;
 import org.apache.shiro.authz.permission.RolePermissionResolver;
 import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.apache.shiro.web.filter.mgt.DefaultFilter;
@@ -17,9 +19,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
+import java.util.Arrays;
+
 @Configuration
 public class ShiroConfig {
     public static final int HASH_ITERATIONS = 3;
+    public static final String DYNAMIC_PERMS = "dynamicPerms";
 
     @Autowired(required = false)
     protected RolePermissionResolver rolePermissionResolver;
@@ -68,13 +73,19 @@ public class ShiroConfig {
     public ShiroFilterChainDefinition filterChainDefinition() {
         DefaultShiroFilterChainDefinition filterChainDefinition = new DefaultShiroFilterChainDefinition();
         filterChainDefinition.addPathDefinition("/*.ico", DefaultFilter.anon.name());
-        filterChainDefinition.addPathDefinition("/index.html", DefaultFilter.anon.name());
+        filterChainDefinition.addPathDefinition("/login.html", DefaultFilter.anon.name());
         filterChainDefinition.addPathDefinition("/refuse.html", DefaultFilter.anon.name());
         filterChainDefinition.addPathDefinition("/passport/login", DefaultFilter.anon.name());
         filterChainDefinition.addPathDefinition("/user/register", DefaultFilter.anon.name());
         filterChainDefinition.addPathDefinition("/lib/**", DefaultFilter.anon.name());
         filterChainDefinition.addPathDefinition("/logout", DefaultFilter.logout.name());
-        filterChainDefinition.addPathDefinition("/**", DefaultFilter.authc.name());
+        filterChainDefinition.addPathDefinition("/**",
+                String.join(",", Arrays.asList(DefaultFilter.authc.name(), DYNAMIC_PERMS)));
         return filterChainDefinition;
+    }
+
+    @Autowired
+    public void modifyShiroFilterFactoryBean(ShiroFilterFactoryBean bean) {
+        bean.getFilters().put(DYNAMIC_PERMS, new PermissionsAuthorizationFilter());
     }
 }

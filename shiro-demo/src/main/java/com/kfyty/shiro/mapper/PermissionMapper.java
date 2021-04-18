@@ -12,7 +12,7 @@ public interface PermissionMapper {
     @AutoMapper
     List<Permission> findByPid(@Param("pid") Integer pid);
 
-    List<Permission> findByUserIdAndType(@Param("userId") Integer userId, @Param("type") String type);
+    List<Permission> findByUserId(@Param("userId") Integer userId);
 
     List<Permission> findByUserIdAndPid(@Param("userId") Integer userId, @Param("pid") Integer pid);
 }

@@ -7,14 +7,13 @@
         JOIN user_role ur ON ur.role_id = rp.role_id
     </sql>
 
-    <select id="findByUserIdAndType" resultType="Permission">
+    <select id="findByUserId" resultType="Permission">
         SELECT
             p.*
         FROM
             <include refid="auth_join" />
         where
             ur.user_id = #{userId}
-            and p.type = #{type}
     </select>
 
     <select id="findByUserIdAndPid" resultType="Permission">

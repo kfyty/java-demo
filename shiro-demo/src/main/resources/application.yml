@@ -18,7 +18,6 @@ spring:
 
 shiro:
   loginUrl: /login.html
-  successUrl: /index.html
   unauthorizedUrl: /refuse.html
 
 mybatis:

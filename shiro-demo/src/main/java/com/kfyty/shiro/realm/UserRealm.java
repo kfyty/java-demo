@@ -24,16 +24,13 @@ import java.util.stream.Collectors;
 
 @Component
 public class UserRealm extends AuthorizingRealm {
-    @Lazy
-    @Autowired
+    @Lazy @Autowired
     private UserMapper userMapper;
 
-    @Lazy
-    @Autowired
+    @Lazy @Autowired
     private RoleMapper roleMapper;
 
-    @Lazy
-    @Autowired
+    @Lazy @Autowired
     private PermissionMapper permissionMapper;
 
     @Override
@@ -53,9 +50,9 @@ public class UserRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         User user = (User) principal.getPrimaryPrincipal();
         List<Role> roles = roleMapper.findByUserId(user.getId());
-        List<Permission> permissions = permissionMapper.findByUserIdAndType(user.getId(), "button");
+        List<Permission> permissions = permissionMapper.findByUserId(user.getId());
         info.addRoles(roles.stream().map(Role::getName).collect(Collectors.toList()));
-        info.addStringPermissions(permissions.stream().map(e -> e.getPermission() + ":" + e.getUrl()).collect(Collectors.toList()));
+        info.addStringPermissions(permissions.stream().map(Permission::getUrl).collect(Collectors.toList()));
         return info;
     }
 }

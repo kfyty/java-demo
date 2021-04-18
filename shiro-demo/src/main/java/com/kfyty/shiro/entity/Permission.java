@@ -1,8 +1,8 @@
 package com.kfyty.shiro.entity;
 
-import java.util.Date;
-
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * TABLE_NAME: permission
@@ -36,11 +36,6 @@ public class Permission {
 	 * 父id
 	 */
 	private Integer pid;
-
-	/**
-	 * 许可证
-	 */
-	private String permission;
 
 	/**
 	 * 创建时间
