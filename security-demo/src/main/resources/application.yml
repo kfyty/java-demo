@@ -2,7 +2,7 @@ spring:
   datasource:
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/shiro?useSSL=false
+      url: jdbc:mysql://localhost:3306/security?useSSL=false
       username: root
       password: www.kfyty.com
       initial-size: 5
@@ -16,14 +16,8 @@ spring:
       max-file-size: 10MB
       max-request-size: 100MB
 
-shiro:
-  loginUrl: /login.html
-  successUrl: /index.html
-  unauthorizedUrl: /refuse.html
-
 mybatis:
   mapper-locations: classpath:com/kfyty/security/mapper/*.xml
-  type-aliases-package: com.kfyty.security.entity, com.kfyty.security.vo
   configuration:
     lazy-loading-enabled: true
     aggressive-lazy-loading: false
