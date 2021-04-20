@@ -1,0 +1,6 @@
+server:
+  config: dev
+
+spring:
+  profiles:
+    include: dev-server

@@ -1,7 +1,15 @@
 server:
   port: 8081
+  config: default
 
 spring:
+  profiles:
+    # 激活的文件，会覆盖本文件的值
+    # 激活的文件，spring.profiles.active 无效
+    # 激活的文件，spring.profiles.include 会覆盖本文件的值
+    # 包含的文件，spring.profiles.active 有效，继续递归则参考以上三点
+    # 包含的文件，spring.profiles.include 有效
+    active: dev
   datasource:
       druid:
         sso:
