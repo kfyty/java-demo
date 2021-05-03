@@ -32,6 +32,7 @@ public class RedisConfig {
         config.useSingleServer()
                 .setAddress(prefix + redisProperties.getHost() + ":" + redisProperties.getPort())
                 .setConnectTimeout((int) redisProperties.getTimeout().toMillis())
+                .setPingConnectionInterval(10)
                 .setDatabase(redisProperties.getDatabase())
                 .setPassword(redisProperties.getPassword());
         config.setCodec(new SerializationCodec());

@@ -1,4 +1,4 @@
-package com.kfyty.redis.delay.handler;
+package com.kfyty.redis.delay.zset.handler;
 
 import java.util.concurrent.TimeUnit;
 
@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  */
 public interface RedisDelayHandler {
     /**
-     * 过期时间
+     * 过期时间，返回 0 则代表过期时间由保存数据时给出
      * @return 毫秒数
      */
     long timeout();

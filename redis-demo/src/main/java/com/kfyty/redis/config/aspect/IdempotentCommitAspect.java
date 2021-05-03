@@ -25,16 +25,7 @@ public class IdempotentCommitAspect {
     @Around(value = "@annotation(idempotentCommit)")
     public Object around(ProceedingJoinPoint pjp, IdempotentCommit idempotentCommit) throws Throwable {
         Object[] args = pjp.getArgs();
-        int argIndex = idempotentCommit.argIndex();
-        if(argIndex >= args.length) {
-            log.error("{}: argIndex out of bound: argIndex={}, args.length={} !", pjp.getSignature().getName(), argIndex, args.length);
-            return null;
-        }
-        if(argIndex > -1 && args[argIndex] == null) {
-            log.error("{} args: args[{}] is null !", pjp.getSignature().getName(), argIndex);
-            return null;
-        }
-        String key = this.buildKey(pjp.getSignature(), argIndex, args);
+        String key = this.buildKey(pjp.getSignature(), idempotentCommit.argIndex(), args);
         if(!RedisUtil.tryLock(key, idempotentCommit.expire(), idempotentCommit.tryWait(), idempotentCommit.timeUnit())) {
             log.error("repeated submit !");
             return "repeated submit !";
@@ -47,6 +38,14 @@ public class IdempotentCommitAspect {
     }
 
     private String buildKey(Signature signature, int argIndex, Object[] args) {
+        if(argIndex >= args.length) {
+            log.error("{}: argIndex out of bound: argIndex={}, args.length={} !", signature.getName(), argIndex, args.length);
+            return null;
+        }
+        if(argIndex > -1 && args[argIndex] == null) {
+            log.error("{} args: args[{}] is null !", signature.getName(), argIndex);
+            return null;
+        }
         StringBuilder key = new StringBuilder(KEY_PREFIX);
         key.append(signature.getDeclaringTypeName()).append(":").append(signature.getName());
         if(argIndex > -1) {

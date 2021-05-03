@@ -1,6 +1,6 @@
 package com.kfyty.redis.handler;
 
-import com.kfyty.redis.delay.handler.RedisDelayHandler;
+import com.kfyty.redis.delay.zset.handler.RedisDelayHandler;
 import org.springframework.stereotype.Component;
 
 /**
