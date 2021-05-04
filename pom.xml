@@ -31,6 +31,8 @@
         <module>dubbo-demo</module>
 		<module>redis-demo</module>
 		<module>netty-demo</module>
+		<module>netty-handler</module>
+		<module>netty-handler-demo</module>
 		<module>rocketmq-demo</module>
 		<module>jpush-demo</module>
         <module>security-demo</module>
