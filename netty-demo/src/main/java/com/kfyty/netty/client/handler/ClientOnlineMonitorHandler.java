@@ -33,6 +33,7 @@ public class ClientOnlineMonitorHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        ctx.channel().close();
         log.error("服务端:{} 已下线！", ctx.channel().remoteAddress());
         if(!this.triggerException.get()) {
             this.client.reconnect();
@@ -47,6 +48,7 @@ public class ClientOnlineMonitorHandler extends ChannelInboundHandlerAdapter {
         log.error("服务端:{} 发生异常：{}！", ctx.channel().remoteAddress(), cause.getMessage());
         if(cause instanceof IOException) {
             this.triggerException.set(true);
+            ctx.channel().close();                      // 这里调用 close 不一定会触发 channelInactive
             this.client.reconnect();
         }
     }

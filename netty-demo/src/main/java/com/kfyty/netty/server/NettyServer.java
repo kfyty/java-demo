@@ -38,10 +38,15 @@ public class NettyServer {
     private final NioEventLoopGroup clientGroup;
     private final ServerBootstrap serverBootstrap;
 
+    private final StringDecoder stringDecoder;
+    private final StringEncoder stringEncoder;
+
     public NettyServer() {
         this.serverGroup = new NioEventLoopGroup();
         this.clientGroup = new NioEventLoopGroup();
         this.serverBootstrap = new ServerBootstrap();
+        this.stringDecoder = new StringDecoder();
+        this.stringEncoder = new StringEncoder();
     }
 
     public void start() throws InterruptedException {
@@ -54,8 +59,8 @@ public class NettyServer {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ch.pipeline().addLast(new DelimiterBasedFrameDecoder(NettyConfig.DEFAULT_BUF, Unpooled.copiedBuffer(DELIMITER.getBytes(StandardCharsets.UTF_8))));
-                        ch.pipeline().addLast(new StringDecoder());
-                        ch.pipeline().addLast(new StringEncoder());
+                        ch.pipeline().addLast(stringDecoder);
+                        ch.pipeline().addLast(stringEncoder);
                         ch.pipeline().addLast(new IdleStateHandler(0, 0, NettyConfig.SERVER_READ_WRITE_TIME_OUT));
                         ch.pipeline().addLast(new ServerHeartBeatHandler());
                         ch.pipeline().addLast(new MessageModelDecoder());

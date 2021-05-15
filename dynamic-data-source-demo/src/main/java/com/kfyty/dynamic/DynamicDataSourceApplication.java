@@ -1,6 +1,6 @@
 package com.kfyty.dynamic;
 
-import com.kfyty.dynamic.mapper.test.TestMapper;
+import com.kfyty.dynamic.service.DynamicDataSourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,8 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @SpringBootApplication
 public class DynamicDataSourceApplication implements CommandLineRunner {
-    private static DynamicDataSourceApplication self;
-
     @Value("${server.log}")
     private Boolean serverLog;
 
@@ -26,14 +24,13 @@ public class DynamicDataSourceApplication implements CommandLineRunner {
     private String serverConfig;
 
     @Autowired
-    private TestMapper testMapper;
+    private DynamicDataSourceService service;
 
-    @Autowired
-    public void setSelf(DynamicDataSourceApplication self) {
-        DynamicDataSourceApplication.self = self;
-    }
-
-//    @CrossOrigin
+    /**
+     * jsonp 测试，js 见 shiro-demo
+     * 需要设置跨域
+     * 建议使用过滤器，或者 @CrossOrigin 注解
+     */
     @RequestMapping(value = "jsonp", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String jsonp(HttpServletRequest request) {
         String callback_fun = request.getParameter("callback_fun_param");
