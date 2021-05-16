@@ -37,6 +37,7 @@
 		<module>jpush-demo</module>
         <module>security-demo</module>
         <module>elasticsearch-demo</module>
+        <module>websocket</module>
     </modules>
 
     <dependencies>
