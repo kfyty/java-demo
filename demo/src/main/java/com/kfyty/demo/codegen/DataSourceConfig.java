@@ -1,8 +1,8 @@
 package com.kfyty.demo.codegen;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
-import com.kfyty.configuration.annotation.Bean;
-import com.kfyty.configuration.annotation.Configuration;
+import com.kfyty.support.autoconfig.annotation.Bean;
+import com.kfyty.support.autoconfig.annotation.Configuration;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.sql.DataSource;
