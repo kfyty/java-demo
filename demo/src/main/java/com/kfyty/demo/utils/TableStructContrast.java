@@ -4,7 +4,7 @@ import com.kfyty.database.generate.database.AbstractDataBaseMapper;
 import com.kfyty.database.generate.info.AbstractFieldStructInfo;
 import com.kfyty.database.generate.info.AbstractTableStructInfo;
 import com.kfyty.database.jdbc.SqlSessionFactory;
-import com.kfyty.util.CommonUtil;
+import com.kfyty.support.utils.CommonUtil;
 import lombok.Data;
 
 import javax.sql.DataSource;

@@ -1,7 +1,7 @@
 package com.kfyty.netty.server.codec;
 
 import com.kfyty.netty.model.BaseMessage;
-import com.kfyty.util.JsonUtil;
+import com.kfyty.support.utils.JsonUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageDecoder;
 import org.springframework.util.StringUtils;
@@ -26,7 +26,7 @@ public class MessageModelDecoder extends MessageToMessageDecoder<String> {
             out.add(json);
             return;
         }
-        BaseMessage baseMessage = JsonUtil.convert2Object(json, BaseMessage.class);
+        BaseMessage baseMessage = JsonUtil.toObject(json, BaseMessage.class);
         baseMessage.setOriginJson(json);
         out.add(baseMessage);
     }

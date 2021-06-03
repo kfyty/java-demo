@@ -2,7 +2,7 @@ package com.kfyty.netty.server.handler.json;
 
 import com.kfyty.netty.model.BaseMessage;
 import com.kfyty.netty.model.ResponseInfo;
-import com.kfyty.util.JsonUtil;
+import com.kfyty.support.utils.JsonUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.ReferenceCountUtil;
@@ -34,7 +34,7 @@ public class BaseMessageHandler extends SimpleChannelInboundHandler<BaseMessage>
                 ctx.writeAndFlush(ResponseInfo.FAILED("未知消息类型") + DELIMITER);
                 return;
             }
-            messageHandler.handler(ctx, JsonUtil.convert2Object(msg.getOriginJson(), messageHandler.handlerType()));
+            messageHandler.handler(ctx, JsonUtil.toObject(msg.getOriginJson(), messageHandler.handlerType()));
         } catch (Exception e) {
             log.error("BaseMessageHandler error !", e);
             ctx.writeAndFlush(ResponseInfo.FAILED(e.getMessage()) + DELIMITER);

@@ -1,7 +1,7 @@
 package com.kfyty.netty.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.kfyty.util.JsonUtil;
+import com.kfyty.support.utils.JsonUtil;
 import lombok.Data;
 
 /**
@@ -21,7 +21,7 @@ public class ResponseInfo {
 
     public String toJson() {
         try {
-            return JsonUtil.convert2Json(this);
+            return JsonUtil.toJson(this);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
