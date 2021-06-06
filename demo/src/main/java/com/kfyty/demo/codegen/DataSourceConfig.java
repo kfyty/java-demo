@@ -18,18 +18,16 @@ import java.util.Properties;
 @Slf4j
 @Configuration
 public class DataSourceConfig {
-
     private static final String PATH = "/druid.properties";
 
-    @Bean
-    public DataSource getDruidDataSource() {
+    @Bean(destroyMethod = "close")
+    public DataSource dataSource() {
         try {
             Properties properties = new Properties();
             properties.load(DataSourceConfig.class.getResourceAsStream(PATH));
             return DruidDataSourceFactory.createDataSource(properties);
         } catch (Exception e) {
-            log.error("load properties failed:", e);
+            throw new RuntimeException(e);
         }
-        return null;
     }
 }

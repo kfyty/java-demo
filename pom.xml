@@ -38,6 +38,7 @@
         <module>security-demo</module>
         <module>elasticsearch-demo</module>
         <module>websocket</module>
+        <module>quartz-demo</module>
     </modules>
 
     <dependencies>
