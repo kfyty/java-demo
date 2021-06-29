@@ -14,7 +14,7 @@ spring:
       druid:
         sso:
           driver-class-name: com.mysql.jdbc.Driver
-          url: jdbc:mysql://127.0.0.1:3306/sso?useSSL=false&useUnicode=true&characterEncoding=utf8
+          url: jdbc:mysql://127.0.0.1:3306/sso?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
           username: root
           password: www.kfyty.com
           initial-size: 5
@@ -25,7 +25,7 @@ spring:
           max-evictable-idle-time-millis: 28800000
         test:
           driver-class-name: com.mysql.jdbc.Driver
-          url: jdbc:mysql://127.0.0.1:3306/test?useSSL=false&useUnicode=true&characterEncoding=utf8
+          url: jdbc:mysql://127.0.0.1:3306/test?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
           username: root
           password: www.kfyty.com
           initial-size: 5

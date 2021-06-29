@@ -139,7 +139,7 @@ public class TableRecordExportService<PrimaryKey, T, Mapper extends BaseMapper<P
             return;
         }
         Map<String, String> valueMapping = new HashMap<>();
-        Set<String> pkSet = info.getPrimaryKey().stream().map(e -> CommonUtil.convert2Hump(e.getFieldName())).collect(Collectors.toSet());
+        Set<String> pkSet = info.getPrimaryKey().stream().map(e -> CommonUtil.underline2CamelCase(e.getFieldName())).collect(Collectors.toSet());
         for (int i = 0; i < info.getFields().size(); i++) {
             valueMapping.put(info.getFields().get(i), info.getValues().get(i));
         }
@@ -261,7 +261,7 @@ public class TableRecordExportService<PrimaryKey, T, Mapper extends BaseMapper<P
                     this.primaryKey.add(struct);
                 }
                 if(BIG_TEXT_TYPE.containsKey(struct.getFieldType())) {
-                    Field field = fieldMap.get(CommonUtil.convert2Hump(struct.getFieldName()).replace(columnSuffix, ""));
+                    Field field = fieldMap.get(CommonUtil.underline2CamelCase(struct.getFieldName()).replace(columnSuffix, ""));
                     if(field == null) {
                         throw new RuntimeException("Can't found field of column: " + struct.getFieldName() + " !");
                     }
@@ -297,7 +297,7 @@ public class TableRecordExportService<PrimaryKey, T, Mapper extends BaseMapper<P
             for (Map.Entry<String, Field> entry : this.fieldMap.entrySet()) {
                 entry.getValue().setAccessible(true);
                 Object o = entry.getValue().get(this.entity);
-                fields.add(CommonUtil.convert2Underline(entry.getKey()) + columnSuffix);
+                fields.add(CommonUtil.camelCase2Underline(entry.getKey()) + columnSuffix);
                 if(o == null) {
                     values.add(null);
                 } else if(o instanceof Date) {
