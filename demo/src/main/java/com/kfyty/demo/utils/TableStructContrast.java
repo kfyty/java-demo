@@ -1,8 +1,8 @@
 package com.kfyty.demo.utils;
 
-import com.kfyty.database.generate.database.AbstractDataBaseMapper;
-import com.kfyty.database.generate.info.AbstractFieldStructInfo;
-import com.kfyty.database.generate.info.AbstractTableStructInfo;
+import com.kfyty.database.generator.info.AbstractFieldStructInfo;
+import com.kfyty.database.generator.info.AbstractTableStructInfo;
+import com.kfyty.database.generator.mapper.AbstractDatabaseMapper;
 import com.kfyty.database.jdbc.SqlSessionFactory;
 import com.kfyty.support.utils.CommonUtil;
 import lombok.Data;
@@ -29,13 +29,13 @@ public class TableStructContrast {
     private String targetDatabase;
     private DataSource source;
     private DataSource target;
-    private Class<? extends AbstractDataBaseMapper> sourceDataBaseMapper;
-    private Class<? extends AbstractDataBaseMapper> targetDataBaseMapper;
+    private Class<? extends AbstractDatabaseMapper> sourceDatabaseMapper;
+    private Class<? extends AbstractDatabaseMapper> targetDatabaseMapper;
 
     public List<Map<String, AbstractTableStructInfo>> doContrast() {
         this.check();
-        Map<String, AbstractTableStructInfo> sourceInfo = loadTableInfo(sourceDatabase, source, sourceDataBaseMapper);
-        Map<String, AbstractTableStructInfo> targetInfo = loadTableInfo(targetDatabase, target, targetDataBaseMapper);
+        Map<String, AbstractTableStructInfo> sourceInfo = loadTableInfo(sourceDatabase, source, sourceDatabaseMapper);
+        Map<String, AbstractTableStructInfo> targetInfo = loadTableInfo(targetDatabase, target, targetDatabaseMapper);
         for (Iterator<Map.Entry<String, AbstractTableStructInfo>> i = targetInfo.entrySet().iterator(); i.hasNext(); ) {
             Map.Entry<String, AbstractTableStructInfo> target = i.next();
             if(sourceInfo.containsKey(target.getKey())) {
@@ -63,8 +63,8 @@ public class TableStructContrast {
         return Arrays.asList(sourceInfo, targetInfo);
     }
 
-    private Map<String, AbstractTableStructInfo> loadTableInfo(String database, DataSource dataSource, Class<? extends AbstractDataBaseMapper> dataBaseMapper) {
-        AbstractDataBaseMapper mapper = SqlSessionFactory.createProxy(dataSource, dataBaseMapper);
+    private Map<String, AbstractTableStructInfo> loadTableInfo(String database, DataSource dataSource, Class<? extends AbstractDatabaseMapper> dataBaseMapper) {
+        AbstractDatabaseMapper mapper = SqlSessionFactory.createProxy(dataSource, dataBaseMapper);
         List<? extends AbstractTableStructInfo> dataBaseInfo = mapper.findTableInfos(database);
         dataBaseInfo.forEach(e -> e.setFieldInfos(mapper.findFieldInfos(database, e.getTableName())));
         return ((List<AbstractTableStructInfo>) dataBaseInfo)
@@ -94,10 +94,10 @@ public class TableStructContrast {
         if(target == null) {
             throw new IllegalArgumentException("target data source can't null !");
         }
-        if(sourceDataBaseMapper == null) {
+        if(sourceDatabaseMapper == null) {
             throw new IllegalArgumentException("source database mapper can't null !");
         }
-        if(targetDataBaseMapper == null) {
+        if(targetDatabaseMapper == null) {
             throw new IllegalArgumentException("target database mapper can't null !");
         }
     }
