@@ -5,6 +5,7 @@ import lombok.Data;
 import org.apache.ibatis.type.JdbcType;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * TABLE_NAME: user
@@ -34,4 +35,8 @@ public class User {
 	 */
 	@Column(value = "CREATE_TIME", jdbcType = JdbcType.DATE)
 	private Date createTime;
+
+	public boolean isRoot() {
+		return Objects.equals(this.username, "root");
+	}
 }

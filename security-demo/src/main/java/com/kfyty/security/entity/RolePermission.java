@@ -1,6 +1,8 @@
 package com.kfyty.security.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * TABLE_NAME: role_permission
@@ -9,6 +11,8 @@ import lombok.Data;
  * By kfyty
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class RolePermission {
 	/**
 	 * 主键

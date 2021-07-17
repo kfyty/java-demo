@@ -1,0 +1,9 @@
+spring:
+  security:
+    anonymous:
+      - /lib/**
+      - /favicon.ico
+      - /refuse.html
+      - /user/register
+      - /passport/login
+      - /passport/logout

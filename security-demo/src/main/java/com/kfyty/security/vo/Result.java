@@ -24,7 +24,15 @@ public class Result<T> {
         this(null, status.value(), message);
     }
 
-    public static Result<Void> OK() {
+    public static <T> Result<T> test(boolean success) {
+        return success ? OK() : FAIL();
+    }
+
+    public static <T> Result<T> test(boolean success, String msgIfFailed) {
+        return success ? OK() : FAIL(msgIfFailed);
+    }
+
+    public static <T> Result<T> OK() {
         return new Result<>(HttpStatus.OK);
     }
 
@@ -40,19 +48,19 @@ public class Result<T> {
         return new Result<>(data, HttpStatus.OK.value(), message);
     }
 
-    public static Result<Void> FAIL() {
+    public static <T> Result<T> FAIL() {
         return FAIL(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    public static Result<Void> FAIL(HttpStatus status) {
+    public static <T> Result<T> FAIL(HttpStatus status) {
         return FAIL(status, null);
     }
 
-    public static Result<Void> FAIL(String message) {
+    public static <T> Result<T> FAIL(String message) {
         return FAIL(HttpStatus.INTERNAL_SERVER_ERROR, message);
     }
 
-    public static Result<Void> FAIL(HttpStatus status, String message) {
-        return new Result<Void>(null, status.value(), message);
+    public static <T> Result<T> FAIL(HttpStatus status, String message) {
+        return new Result<>(null, status.value(), message);
     }
 }

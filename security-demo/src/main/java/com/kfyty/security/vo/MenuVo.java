@@ -9,4 +9,8 @@ import java.util.List;
 public class MenuVo {
     private Permission menu;
     private List<MenuVo> children;
+
+    public MenuVo(Permission permission) {
+        this.menu = permission;
+    }
 }

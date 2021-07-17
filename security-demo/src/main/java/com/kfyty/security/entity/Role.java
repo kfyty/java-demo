@@ -18,6 +18,11 @@ public class Role {
 	private Integer id;
 
 	/**
+	 * 父 id
+	 */
+	private Integer pid;
+
+	/**
 	 * 角色名称
 	 */
 	private String name;
