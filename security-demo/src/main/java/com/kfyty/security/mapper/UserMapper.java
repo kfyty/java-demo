@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 @Mapper
-@AutoMapper(entity = User.class)
 public interface UserMapper extends BaseMapper<Integer, User> {
     @AutoMapper
     User findByUsername(@Param("username") String username);

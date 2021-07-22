@@ -11,7 +11,6 @@ import java.util.List;
 
 @Mapper
 @SelectKey
-@AutoMapper(entity = FilePojo.class)
 public interface FileMapper extends BaseMapper<Integer, FilePojo> {
     @AutoMapper
     int updateByIdSetPathAndSize(@Param("id") Integer id, @Param("path") String path, @Param("size") Long size);

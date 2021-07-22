@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-@AutoMapper(entity = SysBoList.class, primaryKey = "id_")
+@AutoMapper(primaryKey = "id_")
 public interface SysBoListMapper extends BaseMapper<String, SysBoList> {
     @AutoMapper(columns = "id_")
     List<String> findAllId();

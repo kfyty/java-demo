@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 @Mapper
-@AutoMapper(entity = RolePermission.class)
 public interface RolePermissionMapper extends BaseMapper<Integer, RolePermission> {
     @AutoMapper
     void deleteByRoleId(@Param("roleId") Integer roleId);

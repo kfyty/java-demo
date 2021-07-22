@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Param;
  * @email kfyty725@hotmail.com
  */
 @SelectKey
-@AutoMapper(entity = WorkerNodeEntity.class, suffix = "Entity")
+@AutoMapper(suffix = "Entity")
 public interface WorkNodeMapper extends BaseMapper<Long, WorkerNodeEntity> {
     @AutoMapper
     WorkerNodeEntity findByHostAndPort(@Param("host") String host, @Param("port") String port);
