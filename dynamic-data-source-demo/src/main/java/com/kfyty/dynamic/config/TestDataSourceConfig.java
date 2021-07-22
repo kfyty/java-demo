@@ -35,7 +35,7 @@ public class TestDataSourceConfig {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 
-    @Bean(name = "testTransactionManager")
+    @Bean(name = {"testTransactionManager", "transactionManager"})
     public DataSourceTransactionManager testTransactionManager(@Qualifier("testDataSource") DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }

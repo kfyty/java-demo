@@ -1,5 +1,6 @@
 package com.kfyty.dynamic;
 
+import com.baidu.fsg.uid.UidGenerator;
 import com.kfyty.dynamic.service.DynamicDataSourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class DynamicDataSourceApplication implements CommandLineRunner {
     private String serverConfig;
 
     @Autowired
+    private UidGenerator uidGenerator;
+
+    @Autowired
     private DynamicDataSourceService service;
 
     /**
@@ -45,5 +49,6 @@ public class DynamicDataSourceApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         log.info("server log: {}", serverLog);
         log.info("server config: {}", serverConfig);
+        log.info("uid: {}", uidGenerator.getUID());
     }
 }
