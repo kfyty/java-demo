@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,7 @@ public class DynamicDataSourceApplication implements CommandLineRunner {
     @Value("${server.config}")
     private String serverConfig;
 
-    @Autowired
+    @Autowired @Lazy
     private UidGenerator uidGenerator;
 
     @Autowired

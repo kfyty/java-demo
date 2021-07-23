@@ -1,14 +1,16 @@
 package com.kfyty.security.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.ReflectionUtils;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * 描述:
@@ -67,13 +69,8 @@ public class RedisService {
     }
 
     public void hset(String key, Object o, long time, TimeUnit timeUnit) {
-        ReflectionUtils.doWithFields(o.getClass(), field -> {
-            ReflectionUtils.makeAccessible(field);
-            Object value = ReflectionUtils.getField(field, o);
-            if(value != null) {
-                this.redisTemplate.opsForHash().put(key, field.getName(), value);
-            }
-        });
+        Map<String, Object> map = this.objectMapper.convertValue(o, new TypeReference<HashMap<String, Object>>() {}).entrySet().stream().filter(e -> e.getValue() != null).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        this.redisTemplate.opsForHash().putAll(key, map);
         if(time > -1) {
             this.expire(key, time, timeUnit);
         }

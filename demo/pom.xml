@@ -11,8 +11,20 @@
     </parent>
 
     <artifactId>demo</artifactId>
+    <packaging>jar</packaging>
+
+    <properties>
+        <boot-lib-dir>boot-lib</boot-lib-dir>
+        <boot-lib-output>${boot-lib-dir}</boot-lib-output>
+    </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.kfyty</groupId>
+            <artifactId>kfyty-boot-starter-uid-generator</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>io.reactivex.rxjava2</groupId>
             <artifactId>rxjava</artifactId>
@@ -49,4 +61,41 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>${boot-lib-dir}/</classpathPrefix>
+                            <mainClass>com.kfyty.demo.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/${boot-lib-output}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

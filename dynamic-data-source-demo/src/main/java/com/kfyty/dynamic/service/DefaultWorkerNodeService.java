@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @email kfyty725@hotmail.com
  */
 @Service
-public class DefaultWorkNodeService implements WorkerNodeService {
+public class DefaultWorkerNodeService implements WorkerNodeService {
     @Autowired
     private WorkNodeMapper workNodeMapper;
 
