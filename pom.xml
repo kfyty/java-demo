@@ -60,6 +60,12 @@
 
         <dependency>
             <groupId>com.kfyty</groupId>
+            <artifactId>kfyty-aop</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.kfyty</groupId>
             <artifactId>kfyty-database</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
