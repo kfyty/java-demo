@@ -1,6 +1,6 @@
 package com.kfyty.elasticsearch.utils.builder;
 
-import com.kfyty.elasticsearch.utils.SerializableFunction;
+import com.kfyty.support.wrapper.SerializableFunction;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -11,7 +11,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 
 import java.util.Objects;
 
-import static com.kfyty.elasticsearch.utils.LambdaUtil.convertLambdaMethodName;
+import static com.kfyty.support.utils.SerializableLambdaUtil.resolveFieldName;
 
 /**
  * 描述:
@@ -68,56 +68,56 @@ public abstract class ElasticsearchQueryBuilder<T> {
         if(value == null || value.length < 1) {
             return this;
         }
-        return this.buildQuery(QueryBuilders.termsQuery(convertLambdaMethodName(field), value));
+        return this.buildQuery(QueryBuilders.termsQuery(resolveFieldName(field), value));
     }
 
     public ElasticsearchQueryBuilder<T> eq(SerializableFunction<T, ?> field, Object value) {
         if(value == null) {
             return this;
         }
-        return this.buildQuery(QueryBuilders.matchPhraseQuery(convertLambdaMethodName(field), value));
+        return this.buildQuery(QueryBuilders.matchPhraseQuery(resolveFieldName(field), value));
     }
 
     public ElasticsearchQueryBuilder<T> contains(SerializableFunction<T, ?> field, Object value) {
         if(value == null) {
             return this;
         }
-        return this.buildQuery(QueryBuilders.wildcardQuery(convertLambdaMethodName(field), "*" + value + "*"));
+        return this.buildQuery(QueryBuilders.wildcardQuery(resolveFieldName(field), "*" + value + "*"));
     }
 
     public ElasticsearchQueryBuilder<T> gt(SerializableFunction<T, ?> field, Object value) {
         if(value == null) {
             return this;
         }
-        return this.buildQuery(QueryBuilders.rangeQuery(convertLambdaMethodName(field)).gt(value));
+        return this.buildQuery(QueryBuilders.rangeQuery(resolveFieldName(field)).gt(value));
     }
 
     public ElasticsearchQueryBuilder<T> gte(SerializableFunction<T, ?> field, Object value) {
         if(value == null) {
             return this;
         }
-        return this.buildQuery(QueryBuilders.rangeQuery(convertLambdaMethodName(field)).gte(value));
+        return this.buildQuery(QueryBuilders.rangeQuery(resolveFieldName(field)).gte(value));
     }
 
     public ElasticsearchQueryBuilder<T> lt(SerializableFunction<T, ?> field, Object value) {
         if(value == null) {
             return this;
         }
-        return this.buildQuery(QueryBuilders.rangeQuery(convertLambdaMethodName(field)).lt(value));
+        return this.buildQuery(QueryBuilders.rangeQuery(resolveFieldName(field)).lt(value));
     }
 
     public ElasticsearchQueryBuilder<T> lte(SerializableFunction<T, ?> field, Object value) {
         if(value == null) {
             return this;
         }
-        return this.buildQuery(QueryBuilders.rangeQuery(convertLambdaMethodName(field)).lte(value));
+        return this.buildQuery(QueryBuilders.rangeQuery(resolveFieldName(field)).lte(value));
     }
 
     public ElasticsearchQueryBuilder<T> between(SerializableFunction<T, ?> field, Object start, Object end) {
         if(start == null || end == null) {
             return this;
         }
-        return this.buildQuery(QueryBuilders.rangeQuery(convertLambdaMethodName(field)).from(start).to(end));
+        return this.buildQuery(QueryBuilders.rangeQuery(resolveFieldName(field)).from(start).to(end));
     }
 
     protected abstract ElasticsearchQueryBuilder<T> buildQuery(QueryBuilder query);
