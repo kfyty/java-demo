@@ -3,7 +3,8 @@ package com.kfyty.demo.utils;
 import com.kfyty.database.generator.info.AbstractFieldStructInfo;
 import com.kfyty.database.generator.info.AbstractTableStructInfo;
 import com.kfyty.database.generator.mapper.AbstractDatabaseMapper;
-import com.kfyty.database.jdbc.SqlSessionFactory;
+import com.kfyty.database.jdbc.session.Configuration;
+import com.kfyty.database.jdbc.session.SqlSessionProxyFactory;
 import com.kfyty.support.utils.CommonUtil;
 import lombok.Data;
 
@@ -64,7 +65,8 @@ public class TableStructContrast {
     }
 
     private Map<String, AbstractTableStructInfo> loadTableInfo(String database, DataSource dataSource, Class<? extends AbstractDatabaseMapper> dataBaseMapper) {
-        AbstractDatabaseMapper mapper = SqlSessionFactory.createProxy(dataSource, dataBaseMapper);
+        SqlSessionProxyFactory sqlSessionProxyFactory = new SqlSessionProxyFactory(new Configuration().setDataSource(dataSource));
+        AbstractDatabaseMapper mapper = sqlSessionProxyFactory.createProxy(dataBaseMapper);
         List<? extends AbstractTableStructInfo> dataBaseInfo = mapper.findTableInfos(database);
         dataBaseInfo.forEach(e -> e.setFieldInfos(mapper.findFieldInfos(database, e.getTableName())));
         return ((List<AbstractTableStructInfo>) dataBaseInfo)
