@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 @Slf4j
 @Configuration
 public class DataSourceConfig {
-    private static final String PATH = "/druid.properties";
+    private static final String PATH = "druid.properties";
 
     @Bean(destroyMethod = "close")
     public DataSource dataSource() throws Exception {
