@@ -1,9 +1,9 @@
 package com.kfyty.demo.codegen;
 
-import com.alibaba.druid.pool.DruidDataSourceFactory;
+import com.alibaba.druid.pool.DruidDataSource;
 import com.kfyty.support.autoconfig.annotation.Bean;
 import com.kfyty.support.autoconfig.annotation.Configuration;
-import com.kfyty.support.utils.PropertiesUtil;
+import com.kfyty.support.autoconfig.annotation.ConfigurationProperties;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.sql.DataSource;
@@ -18,10 +18,10 @@ import javax.sql.DataSource;
 @Slf4j
 @Configuration
 public class DataSourceConfig {
-    private static final String PATH = "druid.properties";
 
     @Bean(destroyMethod = "close")
+    @ConfigurationProperties("k.datasource.druid")
     public DataSource dataSource() throws Exception {
-        return DruidDataSourceFactory.createDataSource(PropertiesUtil.load(PATH));
+        return new DruidDataSource();
     }
 }
