@@ -1,9 +1,0 @@
-dubbo:
-  application:
-    name: dubbo-service-impl
-  protocol:
-    name: dubbo
-    port: 20880
-  registry:
-    protocol: zookeeper
-    address: zookeeper://127.0.0.1:2181

@@ -28,7 +28,6 @@
         <module>dynamic-data-source-demo</module>
         <module>table-struct-export</module>
         <module>webservice-demo</module>
-        <module>dubbo-demo</module>
 		<module>redis-demo</module>
 		<module>netty-demo</module>
 		<module>netty-handler</module>
