@@ -7,8 +7,8 @@ import com.kfyty.database.generator.config.annotation.DatabaseMapper;
 import com.kfyty.database.generator.config.annotation.FilePath;
 import com.kfyty.database.generator.config.annotation.Table;
 import com.kfyty.database.generator.mapper.MySQLDatabaseMapper;
-import com.kfyty.support.autoconfig.annotation.Autowired;
-import com.kfyty.support.autoconfig.annotation.Configuration;
+import com.kfyty.core.autoconfig.annotation.Autowired;
+import com.kfyty.core.autoconfig.annotation.Configuration;
 
 import javax.sql.DataSource;
 

@@ -5,7 +5,7 @@ import com.kfyty.database.generator.info.AbstractTableStructInfo;
 import com.kfyty.database.generator.mapper.AbstractDatabaseMapper;
 import com.kfyty.database.jdbc.session.Configuration;
 import com.kfyty.database.jdbc.session.SqlSessionProxyFactory;
-import com.kfyty.support.utils.CommonUtil;
+import com.kfyty.core.utils.CommonUtil;
 import lombok.Data;
 
 import javax.sql.DataSource;
