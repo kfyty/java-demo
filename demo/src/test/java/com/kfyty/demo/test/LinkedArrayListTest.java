@@ -1,6 +1,6 @@
 package com.kfyty.demo.test;
 
-import com.kfyty.demo.utils.LinkedArrayList;
+import com.kfyty.core.lang.LinkedArrayList;
 import org.junit.Test;
 
 import java.util.List;
