@@ -1,6 +1,6 @@
 package com.kfyty.elasticsearch.utils.builder;
 
-import com.kfyty.support.wrapper.SerializableFunction;
+import com.kfyty.core.wrapper.function.SerializableFunction;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.data.domain.Pageable;
 

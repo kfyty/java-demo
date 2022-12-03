@@ -1,6 +1,6 @@
 package com.kfyty.elasticsearch.utils.builder;
 
-import com.kfyty.support.wrapper.SerializableFunction;
+import com.kfyty.core.wrapper.function.SerializableFunction;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -11,7 +11,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 
 import java.util.Objects;
 
-import static com.kfyty.support.utils.SerializableLambdaUtil.resolveFieldName;
+import static com.kfyty.core.utils.SerializableLambdaUtil.resolveFieldName;
 
 /**
  * 描述:
