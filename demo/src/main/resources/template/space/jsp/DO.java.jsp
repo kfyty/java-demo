@@ -18,7 +18,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @Data
 @Table("${table}")
 @EqualsAndHashCode(callSuper = true)
-public class MetaDataSourceDO extends AbstractDO {
+public class ${className}DO extends AbstractDO {
 <c:forEach var="field" items="${fields}" varStatus="status">
     <c:if test="${field.field != 'createTime' && field.field != 'updateTime'}">
     /**
