@@ -1,0 +1,29 @@
+package com.kfyty.meta.space.model.entity;
+
+import com.kfyty.meta.space.model.entity.base.AbstractDO;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.data.relational.core.mapping.Table;
+
+/**
+ * 描述: #(table): #(note)
+ *
+ * @author #(author)
+ * @date #now()
+ * @email #(email)
+ */
+@Data
+@Table("#(table)")
+@EqualsAndHashCode(callSuper = true)
+public class MetaDataSourceDO extends AbstractDO {
+    #for(field : fields)
+        #if(field.field == "createTime" || field.field == "updateTime")
+            #continue
+        #end
+    /**
+     * #(columns[for.index].field): #(field.fieldComment)
+     */
+    private #(field.fieldType) #(field.field);
+
+    #end
+}

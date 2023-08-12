@@ -13,10 +13,10 @@ import com.kfyty.core.autoconfig.annotation.Configuration;
 import javax.sql.DataSource;
 
 @Configuration
-@Database("test")
-@Table("test")
+@Database("meta_space")
+@Table("meta_data_source")
 @FilePath("D:/temp/generate")
-@BasePackage("com.kfyty")
+@BasePackage("com.kfyty.meta.space")
 @DatabaseMapper(MySQLDatabaseMapper.class)
 public class GenerateCodeConfig implements GeneratorConfigurationSupport {
     @Autowired
