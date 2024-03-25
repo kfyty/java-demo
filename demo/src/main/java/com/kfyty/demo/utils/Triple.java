@@ -1,6 +1,6 @@
 package com.kfyty.demo.utils;
 
-import javafx.util.Pair;
+import com.kfyty.core.support.Pair;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 

@@ -1,6 +1,6 @@
 package com.kfyty.demo.echarts.vo;
 
-import javafx.util.Pair;
+import com.kfyty.core.support.Pair;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

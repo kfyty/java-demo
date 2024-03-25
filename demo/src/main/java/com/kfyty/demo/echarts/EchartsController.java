@@ -1,5 +1,6 @@
 package com.kfyty.demo.echarts;
 
+import com.kfyty.core.support.Pair;
 import com.kfyty.demo.echarts.vo.EchartsNestedPieVo;
 import com.kfyty.demo.echarts.vo.EchartsPairDimensionVo;
 import com.kfyty.demo.utils.EchartsUtil;
@@ -7,7 +8,6 @@ import com.kfyty.demo.utils.Triple;
 import com.kfyty.mvc.annotation.GetMapping;
 import com.kfyty.mvc.annotation.RequestMapping;
 import com.kfyty.mvc.annotation.RestController;
-import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;

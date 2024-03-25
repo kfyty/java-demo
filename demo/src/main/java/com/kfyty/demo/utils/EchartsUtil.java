@@ -1,8 +1,8 @@
 package com.kfyty.demo.utils;
 
+import com.kfyty.core.support.Pair;
 import com.kfyty.demo.echarts.vo.EchartsNestedPieVo;
 import com.kfyty.demo.echarts.vo.EchartsPairDimensionVo;
-import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
